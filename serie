@@ -1,0 +1,33 @@
+#include "stdio.h"
+#include "stdafx.h"
+#include "conio.h"
+#include "math.h"
+#include "iostream"
+using namespace System;
+
+float sistemaecuaciones( float A, float B, float C, float D, float E, float F);
+
+int main()
+{float a, b, c, d, e, f;
+ 
+ cout<<"Introducir el 1er coeficiente: "; cin>>a;
+ cout<<"Introducir el 2do coeficiente: "; cin>>b;
+ cout<<"Introducir el 3er coeficiente: "; cin>>c;
+ cout<<"Introducir el 4to coeficiente: "; cin>>d;
+ cout<<"Introducir el 5to coeficiente: "; cin>>e;
+ cout<<"Introducir el 6to coeficiente: "; cin>>f;
+ 
+ sistemaecuaciones(a,b,c,d,e,f);
+ getch();
+ return 0;
+}
+float sistemaecuaciones( float A, float B, float C, float D, float E, float F)
+{float s, x, y;
+ s = (A*E)-(D*B);
+ x = ((C*E)-(F*B)) / s;
+ y = ((A*F)-(D*C)) / s;
+
+ cout<<"El valor de X es "<<x<<"el valor de Y es "<<y;
+ return 0;
+
+}
