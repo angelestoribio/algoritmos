@@ -21,7 +21,7 @@ int main()
   cin>>c;
    do{ cout<<"\nIngrese el salario bruto: ";
    cin>>s;
-   }while(s < 0);
+   }while(s < 1400);
    if(s > 1400)
    {imp=impuesto(s);
     af=AFP(s);
