@@ -1,0 +1,49 @@
+#include "stdafx.h"
+#include "stdio.h"
+#include "conio.h"
+#include <iostream>
+#define tam 100;
+using namespace std;
+
+void cargarvector(float sueldobruto[], int n);
+void mostrarvector(float sueldobruto[], int n,float sueldoneto[]);
+void calcularsueldo(float sueldobruto[], int n,float sueldoneto[]);
+void main()
+{int n;
+ float sueldobruto[10], sueldoneto[10];
+  cout<<"Ingrese el la cantidad de empleados: ";
+  cin>>n;
+   cargarvector(sueldobruto,n);
+   calcularsueldo(sueldobruto,n,sueldoneto);
+   mostrarvector(sueldobruto,n,sueldoneto);
+
+	getch();
+}
+void cargarvector (float sueldobruto[], int n)
+{ 
+   for(int i=1; i<=n;  i++)
+    {do{ cout<<"Ingrese el sueldo "<<i<<" : ";
+      cin>>sueldobruto[i];
+    }while(sueldobruto[i] < 1600);
+   }
+}
+void mostrarvector (float sueldobruto[], int n,float sueldoneto[])
+{ cout<<"\n       PLANILLA DE SUELDOS";
+  cout<<"\n-----------------------------------------";
+  cout<<"\n n        Sueldo Bruto        Sueldo Neto";
+   for(int i=1; i<=n;  i++)
+   {
+    cout<<"\n "<<i<<"         "<<sueldobruto[i]<<"                 " <<sueldoneto[i];
+
+   }
+}
+void calcularsueldo (float sueldobruto[], int n,float sueldoneto[])
+{for(int i=1; i<=n;  i++)
+  {if(sueldobruto[i]>2800)
+    {sueldoneto[i] = sueldobruto[i]*0.251;
+    }else
+    {sueldoneto[i] = sueldobruto[i];
+	}
+  }
+}
+
