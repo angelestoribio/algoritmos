@@ -1,0 +1,37 @@
+
+#include "stdafx.h"
+#include "conio.h"
+#include <string>
+#include <iostream>
+
+using namespace std;
+
+string intercambio (string palabra);
+
+void main()
+{int a;
+ string palabra,palabra1;
+ cout<<"Ingrese la Palabra que desea: ";
+ getline(cin,palabra);
+
+ a=palabra.compare(intercambio(palabra));
+ if(a==0)
+   {cout<<"\n LA PALABRA *"<<palabra<<"* ES UN PALINDROMO";
+   }else
+    {cout<<"\n LA PALABRA *"<<palabra<<"* NO ES UN PALINDROMO";
+    }
+ getch();
+}
+
+string intercambio (string palabra)
+{int i, n;
+ char aux;
+ n=palabra.length();
+ for(i=0; i<=(n/2); i++)
+ {aux=palabra[i];
+  palabra[i]=palabra[n-i-1];
+  palabra[n-i-1]=aux;
+ }
+ return(palabra);
+}
+
