@@ -1,0 +1,109 @@
+#include "stdafx.h"
+#include "conio.h"
+#include "math.h"
+#include <iostream>
+
+using namespace std;
+
+void cargar_salario(float vector[],int n);
+void mostrar_salario(float vector[],int n);
+void salario(float vector[],int n,float neto[]);
+
+
+
+int main()
+
+{
+
+float vec[100]={0},neto[100]={0};
+int n,i;
+cout<<"Ingrese numero de salarios"<<endl;
+cin>>n;
+cargar_salario(vec,n);
+salario(vec,n,neto);
+cout<<"la planilla de salarios es:"<<endl;
+cout<<endl<<"salario bruto salario neto"<<endl;
+for(i=0;i<n;i++)
+{
+cout<<vec[i]<<" "<<neto[i]<<endl;
+}
+cout<<"**************************";
+system("pause");
+return 0;
+}
+void cargar_salario(float vector[],int n)
+{
+int i;
+for(i=0;i<n;i++)
+{
+cout<<"ingrese el salario bruto del vector"<<i+1<<endl;
+cin>>vector[i];
+}
+}
+void mostrar_salario(float vector[],int n)
+{
+int i;
+for(i=0;i<n;i++)
+
+
+cout<<vector[i]<<endl;
+
+
+}
+
+
+void salario(float vector[],int n,float neto[])
+
+
+{
+
+
+float iva=0.13,afp=0.121,p=0,s;
+
+
+int i,minimo=1650;
+
+
+for(i=0;i<n;i++)
+
+
+{
+
+
+if(vector[i]>2*minimo)
+
+
+{
+
+
+neto[i]=vector[i]-vector[i]*iva-vector[i]*afp; 
+
+
+}
+
+
+else
+
+
+{
+
+
+neto[i]=vector[i];
+
+
+}
+
+
+p=p+neto[i];
+
+
+}
+
+
+s=p/n;
+
+
+cout<<endl<<"El promedio de los salarios neto es:"<<s<<endl; 
+
+
+}
