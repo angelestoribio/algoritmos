@@ -1,0 +1,296 @@
+#include"iostream"
+#include"stdio.h"
+#include <string.h>
+#include <stdlib.h>
+
+using namespace std;
+
+struct RegProducto
+{ int IdProd;
+char Nombre[20];
+int PrecioUnitario;
+};
+
+struct RegVenta 
+{int IdVenta;
+char Fecha;
+int Cantidad;
+int PrecioUnitario;
+char IdVehiculo;
+int IdProd;
+};
+
+struct RegVehiculo
+{ char IdVehiculo;
+int IdCliente;
+};
+
+struct vec_fecha
+{ char vec[20];
+};
+
+int BUSCAR_ID_VEHICULO(char vehiculo[20])
+{ FILE *ptr=fopen("Venta.dat","rb"); 
+RegVenta reg;
+fread(&reg,sizeof(reg),1,ptr);
+int c=0;
+while (!feof(ptr))
+{ if(strcmp(vehiculo,reg.IdVehiculo)==0)
+{
+c=c+reg.Cantidad;
+}
+fread(&reg,sizeof(reg),1,ptr);
+}
+
+fclose(ptr);
+return(c);
+}
+RegProducto BUSCAR_PRODUCTO(char x[20])
+
+{ 
+FILE *ptr=fopen("Producto.dat","rb"); 
+RegProducto reg;
+fread(&reg,sizeof(reg),1,ptr);
+int c=0;
+while (!feof(ptr) || strcmp(x,reg.IdProd)!=0 )
+{ 
+
+fread(&reg,sizeof(reg),1,ptr);
+
+}
+
+fclose(ptr);
+return(reg);
+}
+
+int FECHA_DAT(char xxx[])
+
+{
+char *ptr;
+int dia, mes, año,s;
+ptr = strtok(xxx, "/" );
+dia = atoi(ptr);
+ptr = strtok( NULL, "/" );
+mes = atoi(ptr);
+ptr = strtok( NULL, "/" );
+año = atoi(ptr);
+s=año*100;
+s=s+mes;
+s=s*100;
+s=s+dia;
+return(s);
+}
+bool fecha(char fecha1[20],char fecha2[20],char fecha3[20])
+{ 
+int s1,s2,s3;
+bool xxx;
+s1=FECHA_DAT(fecha1);
+s2=FECHA_DAT(fecha2);
+s3=FECHA_DAT(fecha3);
+if ((s1<s3)&&(s3<s2)){xxx=true;}
+else 
+{xxx=false;}
+return(xxx);
+}
+int BUSCAR_IDprod(char x[20])
+{
+FILE *ptr=fopen("Venta.dat","rb"); 
+RegVenta reg;
+fread(&reg,sizeof(reg),1,ptr);
+while (!feof(ptr)|| strcmp(x,reg.IdVehiculo)!=0 )
+{ 
+}
+fclose(ptr);
+return(reg.IdProd);
+}
+int main(void)
+{int op;
+try{
+cout<<"1.ingresar datos PRODUCTO"<<endl;
+cout<<"2. mostrar datos PRODUCTO"<<endl;
+cout<<"3.insertar datos VEHICULO "<<endl;
+cout<<"4 mostrar datos VEHICULO "<<endl;
+cout<<"5.insertar datos VENTA "<<endl;
+cout<<"6 mostrar datos VENTA "<<endl;
+cout<<"7. reporte "<<endl;
+cin>>op;
+}
+catch (char x){cout<<"digita otra opcion voludo ";}
+if(op==1)
+{ 
+FILE *ptr=fopen("Producto.dat","ab");
+if(ptr)
+{
+printf("si se puedo crear el archivo ");cout<<endl;
+
+struct RegProducto reg;
+cout<<"ingrese id Amigo"<<endl;
+cin>>reg.IdProd;
+cout<<"ingrese Nombre"<<endl;
+cin>>reg.Nombre;
+cout<<"ingrese PrecioUnitario"<<endl;
+cin>>reg.PrecioUnitario;
+fwrite(&reg,sizeof(reg),1,ptr);
+
+fclose(ptr);
+printf("se inserta la estructura en el archivo ");
+}
+else 
+{ printf("no se pudo crear el archivo binario");}
+}
+
+if(op==2)
+{ FILE *ptr=fopen("Producto.dat","rb"); 
+RegProducto reg;
+fread(&reg,sizeof(reg),1,ptr);
+while (!feof(ptr))
+{ cout<<reg.IdProd<<" "<<reg.Nombre<<" "<<reg.PrecioUnitario<<endl;
+fread(&reg,sizeof(reg),1,ptr);
+}
+fclose(ptr);
+}
+if(op==3)
+{ FILE *ptr=fopen("Vehiculo.dat","ab");
+if(ptr)
+{
+printf("si se puedo crear el archivo ");cout<<endl;
+struct RegVehiculo reg;
+cout<<"ingrese id Vehiculo"<<endl;
+cin>>reg.IdVehiculo;
+cout<<"ingrese id Cliente"<<endl;
+cin>>reg.IdCliente;
+fwrite(&reg,sizeof(reg),1,ptr);
+fclose(ptr);
+printf("se inserta la estructura en el archivo "); 
+}
+
+else 
+{ printf("no se pudo crear el archivo binario");}
+if (op==4)
+{FILE *ptr=fopen("Vehiculo.dat","rb"); 
+RegVehiculo reg;
+fread(&reg,sizeof(reg),1,ptr);
+while (!feof(ptr))
+{
+cout<<reg.IdVehiculo<<" "<<reg.IdCliente<<endl;
+fread(&reg,sizeof(reg),1,ptr);
+}
+fclose(ptr);
+}
+if (op==5)
+{ FILE *ptr=fopen("Venta.dat","ab");
+if(ptr)
+{
+printf("si se puedo crear el archivo ");cout<<endl;
+RegVenta reg;
+cout<<"ingrese id venta"<<endl;
+cin>>reg.IdVenta;
+cout<<"ingrese fecha"<<endl;
+cin>>reg.Fecha;
+cout<<"ingrese cantidad"<<endl;
+cin>>reg.Cantidad;
+cout<<"ingrese PrecioUnitario"<<endl;
+cin>>reg.PrecioUnitario;
+cout<<"ingrese IdVehiculo"<<endl;
+cin>>reg.IdVehiculo;
+cout<<"ingrese IdProd"<<endl;
+cin>>reg.IdProd;
+
+fwrite(&reg,sizeof(reg),1,ptr);
+fclose(ptr);
+printf("se inserta la estructura en el archivo ");
+}
+else 
+{ printf("no se pudo crear el archivo binario");}
+}
+}
+if (op==6)
+{FILE *ptr=fopen("Venta.dat","rb"); 
+RegVenta reg;
+fread(&reg,sizeof(reg),1,ptr);
+while (!feof(ptr))
+{
+cout<<reg.IdVenta<<" "<<reg.Fecha<<" "<<reg.Cantidad<<" "<<reg.PrecioUnitario<<" "<<reg.IdVehiculo<<" "<<reg.IdProd<<endl;
+fread(&reg,sizeof(reg),1,ptr);
+}
+fclose(ptr);
+}
+if (op==7)
+{ vec_fecha FECHA[20];
+FILE *ptr=fopen("Venta.dat","rb"); 
+char fecha1[20],fecha2[20],aux[20];
+int c=0;
+bool x;
+cout<<"ingrese fecha 1 ";
+cin>>fecha1;
+cout<<"ingrese fecha 2";
+cin>>fecha2;
+RegProducto PRO;
+RegVenta reg;
+
+fread(&reg,sizeof(reg),1,ptr);
+while (!feof(ptr))
+{ x=fecha(fecha1,fecha2,reg.Fecha);
+if(x=true){ strcpy((FECHA[c]->vec),reg.Fecha);c=c+1; }
+
+fread(&reg,sizeof(reg),1,ptr);
+
+}
+//++++
+int i, j, pivot = 0;
+bool repetido;
+for(i = 0; i < c; i++){
+repetido = false;
+for(j = 0; j < pivot; j++){
+if(strcmp((FECHA[i]->vec),(FECHA[j]->vec))==0){//ver
+repetido = true;
+break;
+}
+}
+if(!repetido){
+
+//ver 
+
+strcpy ((FECHA[pivot]->vec),(FECHA[i]->vec));
+pivot++;
+}
+}
+
+strcpy((FECHA[pivot+1]->vec),(FECHA[c]->vec));
+
+c = pivot;
+
+int Cantidad;
+
+//tenemos FECHA elementos no repetidos;
+
+//++++
+
+rewind(ptr);
+
+int x,v=0;
+
+int z=1;
+
+cout<<"Nro"<<"id vehiculo"<<"producto"<<"CantAcumulada"<<"precio Unit"<<"total"<<endl;
+
+while (v<c)
+
+{ fread(&reg,sizeof(reg),1,ptr);
+while (!feof(ptr))
+{ 
+Cantidad=BUSCAR_ID_VEHICULO(FECHA[v]->vec);
+
+fread(&reg,sizeof(reg),1,ptr);
+}
+x=BUSCAR_IDprod(FECHA[v]->vec); 
+PRO=BUSCAR_PRODUCTO(x);
+cout<<z<<" "<<reg.IdVehiculo<<" "<<FECHA[v]->vec<<" "<<Cantidad<<" "<<PRO.PrecioUnitario<<" "<<(Cantidad*PRO.PrecioUnitario)<<endl;
+z=z+1;
+rewind(ptr);
+v=v+1;
+}
+}
+return(0);
+};
+
