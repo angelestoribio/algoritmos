@@ -1,0 +1,86 @@
+#include "stdafx.h"
+#include <conio.h>
+#include <iostream>
+#include "math.h"
+#define fil 180
+#define col 180
+
+using namespace std;
+
+void mostrar(int mat[fil][col],int n,int s);
+void cargar(int mat[fil][col],int n,int s);
+void sumar(int mat[fil][col],int n,int s);
+void promedio(int mat[fil][col],int n,int s);
+
+int main()
+{int opcion,mat[fil][col],a,b,i,j,prome=0,p=0,f=0,diag=0;
+do{
+system("cls");
+
+cout<<"MENU"<<endl;
+cout<<"1.-Cargar Matriz"<<endl;
+cout<<"2.-Promedio de la Matriz"<<endl;
+cout<<"3.-Sumar Diagonal"<<endl;
+cout<<"4.-Mostrar la Matriz"<<endl;
+cout<<"0.-Salir"<<endl;
+cin>>opcion;
+
+switch(opcion)
+{case 1:
+cout<<"Ingrese el tamanho de filas"<<endl;
+cin>>a;
+cout<<"Ingrese el tamanho de columnas"<<endl;
+cin>>b;
+cargar(mat,a,b);
+getch();
+break;
+
+case 2:
+for(i=0;i<a;i++)
+{for(j=0;j<b;j++)
+{p=p+mat[i][j];
+f=f+1;
+}
+}
+prome=p/f;
+cout<<"El Promedio de la Matriz es"<<prome<<endl;
+getch();
+break;
+
+case 3:
+for(i=0;i<a;i++)
+{diag=diag+mat[i][i];
+}
+cout<<"La suma de la diagonal de la matriz es:"<<diag<<endl;
+getch();
+break;
+case 4:
+mostrar(mat,a,b);
+getch();
+break;
+}
+}while(opcion!=0);
+getch();
+return 1;
+}
+void cargar(int mat[fil][col],int n,int s)
+{int i,j;
+for(i=0;i<n;i++)
+{for(j=0;j<s;j++)
+{
+cout<<"ingrese valor a la matriz"<<endl;
+cin>>mat[i][j];
+}
+}
+}
+void mostrar(int mat[fil][col],int n,int s)
+{int i,j;
+for(i=0;i<n;i++)
+{for(j=0;j<s;j++)
+{
+cout<<mat[i][j]<<" ";
+
+}
+cout<<endl;
+}
+}
